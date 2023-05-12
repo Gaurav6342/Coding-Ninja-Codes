@@ -1,0 +1,87 @@
+User
+Problem Statement
+
+You are given a string 'S'. You perform the following operations:
+1. Split '5' into three non-empty substrings such that each character of 'S' should present in exactly one substring. 2. Create a new string by concatenating 1st and 3rd parts.
+Return 1 if you can make this new string a palindrome otherwise return 0.
+For Example:-
+Let 'N' = 6, 'S' = "abccba".
+Three substrings are "ab", "cc", and "ba" and by concatenating 1st and 3rd parts we get "abba" which is a palindrome.
+So our answer is 1.  Detailed explanation (Input/output format, Notes, Images)
+Input Format:-
+First-line contains an integer 'T', which denotes the number of
+test cases.
+For every test case:-
+First-line contains an integer 'N', denoting the length of the string 'S'.
+Second-line contains a String 'S', which consists of 'N'
+lowercase English letters.
+Output Format:-
+For each test case, Return 1 if you can make this new string a palindrome otherwise return 0.
+Note:- You don't need to print anything. Just implement the given function.
+Constraints:-
+1 <= 'T' <= 10
+3 <= 'N' <= 10^5
+'S' consists of 'N' lowercase English letters.
+The Sum of 'N' overall test cases does not exceed 10^5.
+Time Limit: 1 sec
+Sample Input 1:-
+2
+4
+abcd
+5  
+zzzzz 
+Sample Output 1:-
+Ө
+1
+Explanation Of Sample Input 1:-
+First test case:-
+It can be proven that we cannot make the new string a palindrome.
+So our answer is 0.
+Second test case case: -
+Three substrings are "zzz", "z", and "z" and by concatenating 1st and 3rd parts we get "zzzz" which is a palindrome. So our answer is 1. Sample Input 2:-
+24
+4
+abca
+3
+xyz
+Sample Output 2:-
+1    
+0    
+
+-------------
+Python(3.5) code:
+
+from typing import *
+
+
+def palindrome13(s: str) -> int:
+   
+    # Check if the length of the string is less than 3, which means we can't split it into 3 substrings
+    if len(s) < 3:
+        return 0
+
+    # Check if all characters in the string are the same, in which case we can always form a palindrome
+    if len(set(s)) == 1:
+        return 1
+
+    # Check if the string itself is already a palindrome, in which case we can form a palindrome by concatenating the first and third substrings
+    if s == s[::-1]:
+        return 1
+
+    # Find all possible ways to split the string into 3 non-empty substrings
+    n = len(s)
+    for i in range(1, n-1):
+        for j in range(i+1, n):
+            s1 = s[:i]
+            s2 = s[i:j]
+            s3 = s[j:]
+            # Check if each character in the original string appears in exactly one of the substrings
+            if set(s1 + s2 + s3) == set(s):
+                # Check if the new string formed by concatenating the first and third substrings is a palindrome
+                if s1 + s3 == (s1 + s3)[::-1]:
+                    return 1
+
+    # If we haven't returned 1 by now, it means we couldn't form a palindrome
+    return 0
+
+    pass
